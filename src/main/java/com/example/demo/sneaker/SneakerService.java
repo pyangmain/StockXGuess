@@ -25,7 +25,6 @@ public class SneakerService {
     @GetMapping
     public List<Sneaker> getTopTen() {
         int db_size = (int) sneakerRepository.count();
-        System.out.println("db_size:" + db_size);
         Integer[] totalIds = new Integer[db_size];
         for (int i = 0; i < db_size; i++) {
             totalIds[i] = i + 1;
