@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import './App.css';
+import './game-styles.css'
 
 export default function Game() {
   const [gameState, setGameState] = useState("start"); // start -> display -> guess -> result -- x10 -> end
@@ -8,6 +8,7 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [guessInput, setGuessInput] = useState('');
   const [pointsGained, setPointsGained] = useState(0);
+
   const initGame = () => {
     fetch("http://localhost:8080/api/v1/sneaker/getTopTen")
     .then((response) => {
@@ -28,7 +29,7 @@ export default function Game() {
   const handleSubmit = (e) => {
     e.preventDefault();
     var userGuess;
-    if(guessInput === NaN) {
+    if(isNaN(guessInput)) {
       userGuess = 0;
     }
     else {
@@ -89,17 +90,20 @@ export default function Game() {
             <h1 id="level-counter" className="level-counter">{round}/10</h1>
             <h1 id="score" className="score">SCORE: {score}</h1>
         </div>
-        <form onSubmit={handleSubmit}>
-            <input 
+          <div className='input-div'>
+          <input 
                 min = "0"
                 max = "10000"
                 placeholder="$USD"
                 type="number" 
                 value={guessInput} 
-                onChange={(e) => {setGuessInput(e.target.value)}} 
+                id="guess-input"
+                className="black-outline guess-input"
+                onChange={(e) => {setGuessInput(e.target.value)}}
             />
-        <button id="guess-button" className="fixed-green-button">Submit</button>
-        </form>
+          </div>
+           
+            <button className="fixed-green-button" type="submit" onClick={handleSubmit}>Submit</button>
       </div>
     );
   }
