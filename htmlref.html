@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="game-styles.css"> 
+    <title>Game</title> 
+</head>
+<body>
+    <div id="header-div" class="header-div">
+            <h1 id="level-counter" class="level-counter"></h1>
+            <h1 id="score" class="score">SCORE: 0</h1>
+    </div>
+    <div id="game-div" class="game-div">
+        <h2 id="sneaker-title"></h2>
+        <img id="sneaker-img" src="" class="sneaker-img">
+    </div>
+    <div id="text-div" class="text-div">
+        <div>
+            <a href="stockx.com" id="product-link"><h2 id="product-text">Link to shoes</h2></a>
+            <h2 id="shoe-price"></h2>
+            <h2 id="player-answer"></h2>
+            <h2 id="points-gained"></h2>
+            <div id="final-message">
+                <h2>GAME OVER</h2>
+                <h2 id="final-score"></h2>
+            </div>
+        </div>
+    </div>
+    <div id="input-div" class="input-div">
+        <input min="0" max="10000" placeholder="$USD" type="number" id="guess-input" class="black-outline guess-input">
+    </div>
+    <button id="guess-button" class="fixed-green-button">Guess</button>
+    <script src="script.js"></script> 
+</body>
+</html>
