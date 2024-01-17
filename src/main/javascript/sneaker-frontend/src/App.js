@@ -2,11 +2,12 @@ import {useState} from 'react';
 import './App.css';
 
 export default function Game() {
-  const [gameState, setGameState] = useState("start") // start -> display -> guess -> result -- x10 -> end
+  const [gameState, setGameState] = useState("start"); // start -> display -> guess -> result -- x10 -> end
   const [sneakerArray, setSneakerArray] = useState(Array(10));
   const [round, setRound] = useState(-1);
   const [score, setScore] = useState(0);
-
+  const [guessInput, setGuessInput] = useState('');
+  const [pointsGained, setPointsGained] = useState(0);
   const initGame = () => {
     fetch("http://localhost:8080/api/v1/sneaker/getTopTen")
     .then((response) => {
@@ -24,6 +25,33 @@ export default function Game() {
 
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    var userGuess;
+    if(guessInput === NaN) {
+      userGuess = 0;
+    }
+    else {
+      userGuess = parseInt(guessInput);
+    }
+    var gainedPoints = Math.max(0, Math.floor(1000 - Math.pow(Math.abs(parseInt(userGuess) - sneakerArray[round - 1].price), 1.38)));
+    console.log(gainedPoints);
+    setPointsGained(gainedPoints);
+    setScore(score + gainedPoints);
+    setGameState("result");
+  }
+
+  const advanceRound = () => {
+    if(round === 10) {
+      setGameState("end");
+    }
+    else {
+      setRound(round + 1);
+      setGuessInput('');
+      setGameState("display");
+    }
+  }
+
   function renderStart() {
     return (
       <div className="centered-div">
@@ -39,7 +67,6 @@ export default function Game() {
     )
   }
   function renderDisplay() {
-    console.log("sneaker:" + sneakerArray);
     return (
       <div>
         <div id="header-div" className="header-div">
@@ -47,51 +74,79 @@ export default function Game() {
             <h1 id="score" className="score">SCORE: {score}</h1>
         </div>
         <div id="game-div" className="game-div">
-            <h2 id="sneaker-title"></h2>
+            <h2 id="sneaker-title">{sneakerArray[round - 1].sneakerName}</h2>
             <img id="sneaker-img" src={sneakerArray[round - 1].imgUrl} className="sneaker-img"></img>
         </div>
-        <button id="guess-button" className="fixed-green-button" >Guess</button>
+        <button id="guess-button" className="fixed-green-button" onClick={() => {setGameState("guess")}}>Guess</button>
       </div>
     );
   }
+
   function renderGuess() {
     return (
       <div>
-        guess.
+        <div id="header-div" className="header-div">
+            <h1 id="level-counter" className="level-counter">{round}/10</h1>
+            <h1 id="score" className="score">SCORE: {score}</h1>
+        </div>
+        <form onSubmit={handleSubmit}>
+            <input 
+                min = "0"
+                max = "10000"
+                placeholder="$USD"
+                type="number" 
+                value={guessInput} 
+                onChange={(e) => {setGuessInput(e.target.value)}} 
+            />
+        <button id="guess-button" className="fixed-green-button">Submit</button>
+        </form>
       </div>
-    )
+    );
   }
 
   function renderResult() {
     return (
       <div>
-        result.
+        <div id="header-div" className="header-div">
+            <h1 id="level-counter" className="level-counter">{round}/10</h1>
+            <h1 id="score" className="score">SCORE: {score}</h1>
+        </div>
+        <div id="text-div" className="text-div">
+            <a href={sneakerArray[round - 1].sneakerUrl} id="product-link"><h2 id="product-text">Link to shoes</h2></a>
+            <h2 id="shoe-price">{sneakerArray[round - 1].price}</h2>
+            <h2 id="player-answer">{guessInput}</h2>
+            <h2 id="points-gained">{pointsGained}</h2>
+        </div>
+        <button id="guess-button" className="fixed-green-button" onClick={advanceRound}>Continue</button>
       </div>
-    )
+    );
   }
 
   function renderEnd() {
     return (
       <div>
-        End.
+        <div id="final-message">
+                <h2>GAME OVER</h2>
+                <h2 id="final-score">Final Score: {score}</h2>
+            </div>
+        <button id="guess-button" className="fixed-green-button" onClick={initGame}>Play Again</button>
       </div>
-    )
+    );
   }
   function renderBasedOnGameState() {
-    console.log("thing: " + sneakerArray);
-    if(gameState == "start") {
+    if(gameState === "start") {
       return renderStart();
     }
-    if(gameState == "display") {
+    if(gameState === "display") {
       return renderDisplay();
     }
-    if(gameState == "guess") {
+    if(gameState === "guess") {
       return renderGuess();
     }
-    if(gameState == "result") {
+    if(gameState === "result") {
       return renderResult();
     }
-    if(gameState == "end") {
+    if(gameState === "end") {
       return renderEnd();
     }
 
@@ -100,5 +155,6 @@ export default function Game() {
     </div>)
   }
   return (renderBasedOnGameState());
+  
 }
 
