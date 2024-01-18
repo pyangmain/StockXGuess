@@ -5,10 +5,32 @@
     font-family: 'Montserrat Alternates', sans-serif;
     box-sizing: border-box;
 }
+.QUICKSAND { 
+    font-family: 'Quicksand', 'sans-serif' !important;
+  } 
+html, body, #root, #root>div {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
 h1 {
     display: inline;
 }
+h4 {
+    font-size: 5em;
+    display: inline-block;
+    margin-bottom: 0;
+    text-align: center;
+    display: inline;
+}
 
+.root {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
 .stockXgreen {
     color: #256241;
 }
@@ -77,7 +99,7 @@ h1 {
 
 .input-div {
     text-align: center;
-    height: 800px;
+    height: 650px;
     width: auto;
     display: none;
     align-items: center;
@@ -96,11 +118,12 @@ h1 {
 }
 .text-div {
     text-align: center;
-    height: 800px;
+    height: 675px;
     width: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 
 }
 
@@ -113,10 +136,44 @@ h1 {
     padding: 10%;
     width: 80%;
     text-align: center;
-    font-size: 92px;
+    font-size: 140px;
     outline: none
 }
+.final-message-div {
+    display:block;
+}
+.green-button {
+    margin-top: 10px;
+    background-color: white;
+    color: #3e9754;
+    border:2px solid #3e9754;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    transition-duration: .4s; 
+    border-radius: 8px;
 
+}
+
+.green-button:hover {
+    background-color: #3e9754;
+    color: white;
+    transform: 150ms;
+    transform: scale(1.03);
+    cursor: pointer;    
+}
+
+
+
+.centered-div {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

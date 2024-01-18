@@ -22,10 +22,11 @@ body {
 h1,h2,h3,h4,p {
     text-align: center;
 }
-h1 {
+h4 {
     font-size: 5em;
     display: inline-block;
     margin-bottom: 0;
+    text-align: center;
 }
 p {
     padding-left: auto;
@@ -50,32 +51,5 @@ p {
     text-align: center;
 }
 
-.green-button {
-    margin-top: 10px;
-    background-color: white;
-    color: #3e9754;
-    border:2px solid #3e9754;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    transition-duration: .4s; 
-    border-radius: 8px;
-
-}
-
-.green-button:hover {
-    background-color: #3e9754;
-    color: white;
-    transform: 150ms;
-    transform: scale(1.03);
-    cursor: pointer;    
-}
 
 
-
-
-.centered-div {
-    text-align: center;
-}
