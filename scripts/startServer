@@ -1,0 +1,2 @@
+#!/bin/bash
+ssh -i stockXDeploy.pem ubuntu@ec2-3-144-22-169.us-east-2.compute.amazonaws.com
