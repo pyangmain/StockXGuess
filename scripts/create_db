@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Bash script to configure PostgreSQL
+
+# Function to set password, create database, and grant permissions
+configure_postgres() {
+    # Log into PostgreSQL with the default postgres user
+    sudo -u postgres psql <<EOF
+
+    -- Set password for the postgres user
+    ALTER USER postgres PASSWORD 'StockXGuess';
+
+    -- Create the database named sneaker
+    CREATE DATABASE sneaker;
+
+    -- Grant all privileges on the database to the postgres user
+    GRANT ALL PRIVILEGES ON DATABASE sneaker TO postgres;
+
+    -- Exit PostgreSQL shell
+    \q
+EOF
+}
+
+# Calling the function to start the configuration process
+configure_postgres
+
+echo "PostgreSQL has been configured successfully."
